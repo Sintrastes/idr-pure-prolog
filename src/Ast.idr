@@ -24,6 +24,22 @@ data Term : Type where
  Var : Variable -> Term
  Comp : Atom -> List Term -> Term
 
+and' : List Bool -> Bool
+and' [] = True
+and' xs = foldr1 p xs
+  where p True True = True
+        p x y = False
+
+implementation Eq Term where
+  (Var x) == (Var y) = assert_total $ x == y
+  (Comp x y) == (Comp x' y') = assert_total $ (x == x') && (and' $ Prelude.List.zipWith (==) y y')
+  x == y = assert_total $ False
+
+implementation Show Term where
+  show (Var s) = s
+  show (Comp s []) = s
+  show (Comp s xs) = s ++ "(" ++ (concat $ intersperse "," (map show xs)) ++ ")"
+
 Terms : Type
 Terms = List Term
 

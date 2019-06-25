@@ -91,7 +91,8 @@ implementation Eq Solution where
 Show Solution where
   show (MkSolution [])            = "True"
   show (MkSolution xs ) = (concat $ intersperse "\n" $ map renderBindings xs)
-    where renderBindings (v, t) = v ++ " = " ++ show t
+    where renderBindings : (Variable, Term) -> String
+          renderBindings (v, t) = v ++ " = " ++ show t
 
 
 isPlain : List Char -> Bool

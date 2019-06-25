@@ -2,10 +2,11 @@ module Main
 
 import Interp
 import Ast
+import Examples
 
 program2 : Program
-program2 = [ (r z) .
-           , (r (r z)) .
+program2 = [ (s z) .
+           , (s (s z)) .
 	   ]
 
 -- Some tests
@@ -17,7 +18,7 @@ main = do
   print $ (nub $ bfs $ makeReportTree [(n z) .] [n X])
   putStrLn "\n---------------"
   -- Why does this one get [True, True]? It matches twice?
-  print $ (nub $ bfs $ makeReportTree program2 [r X])
+  print $ (nub $ bfs $ makeReportTree program2 [s X])
   putStrLn "\n---------------"
   print result
   putStrLn "\n---------------"
